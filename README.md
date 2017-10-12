@@ -3,6 +3,7 @@
 The city of Gotham has decided to perform an analysis on the noise of its street. Several sensors have been put at different parts of the city which register the current noise (in decibels) every minute. Your task is to write a REST API which stores data received by this sensors and provides some basic statistical data.
 
 - Create a POST endpoint which sensors will call every minute with the following input, and stores data in a database
+  
   Inputs:
   ```
     id: <sensor id>
