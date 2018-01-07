@@ -12,6 +12,9 @@ spring:
     console:
       enabled: true
       path: /h2
+  logging:
+    level:
+        ROOT: DEBUG
 
 flyway:
   locations:
