@@ -1,7 +1,10 @@
 package com.exercise.model;
 
+import javax.validation.constraints.NotNull;
+
 public class Sensor {
 
+    @NotNull
     private String sensorId;
 
     public Sensor() {

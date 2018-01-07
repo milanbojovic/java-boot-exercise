@@ -27,9 +27,25 @@ public class SensorService {
 
     @Transactional
     public void addSensor(Sensor sensor) {
-        SensorRecord sensorRecord = create.newRecord(SENSOR);
-        sensorRecord.setSensorPublicId(sensor.getSensorId());
-        sensorRecord.store();
+        LOG.debug("Executing action add sensor for id [" + sensor.getSensorId() + "]");
+
+        if (findSensor(sensor.getSensorId()) == null) {
+            LOG.debug("Sensor name uniquity check PASSED, proceeding with addSensor action");
+            SensorRecord sensorRecord = create.newRecord(SENSOR);
+            sensorRecord.setSensorPublicId(sensor.getSensorId());
+            sensorRecord.store();
+            LOG.debug("Sensor [" + sensor.getSensorId() + "] successfully added.");
+        } else {
+            LOG.error("ERROR - Sensor name uniquity check FAILED");
+            throw new IllegalStateException("Error - sensor with id: \" " + sensor.getSensorId() + " \" is already present in database.");
+        }
+    }
+
+    protected Sensor findSensor(String sensorId) {
+        return getSensors().stream()
+                .filter(sensorElement -> sensorElement.getSensorId().equals(sensorId))
+                .findFirst()
+                .orElse(null);
     }
 
 }
