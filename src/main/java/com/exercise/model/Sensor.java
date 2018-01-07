@@ -17,4 +17,11 @@ public class Sensor {
     public String getSensorId() {
         return sensorId;
     }
+
+    @Override
+    public String toString() {
+        return "Sensor{" +
+                "sensorId='" + sensorId + '\'' +
+                '}';
+    }
 }
