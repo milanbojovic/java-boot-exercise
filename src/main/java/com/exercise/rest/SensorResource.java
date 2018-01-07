@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Collection;
 
 @RequestMapping("/sensors")
@@ -27,9 +28,9 @@ public class SensorResource {
     }
 
     @PostMapping
-    ResponseEntity addSensor(@RequestBody Sensor sensor) {
+    ResponseEntity addSensor(@Valid @RequestBody Sensor sensor) {
         LOG.info("Executing action add sensor.");
         sensorService.addSensor(sensor);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(sensor);
     }
 }
