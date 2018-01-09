@@ -56,4 +56,26 @@ public class SensorServiceTest {
         assertNull("Assert sensor doesn't exist", sensor);
     }
 
+    @Test
+    public void addSensor_addSensor_True() {
+        Sensor sensor = new Sensor("new-street-sensor1");
+        sensorService.addSensor(sensor);
+
+        assertNotNull("Assert newly added sensor exists.", sensorService.findSensor("new-street-sensor1"));
+    }
+
+    @Test
+    public void addSensor_addSensor_False() {
+        Sensor sensor = new Sensor("new-street-sensor2");
+        sensorService.addSensor(sensor);
+        int sensorsCount = sensorService.getSensors().size();
+
+        try {
+            sensorService.addSensor(sensor);
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } finally {
+            assertEquals(sensorsCount, sensorService.getSensors().size());
+        }
+    }
 }
