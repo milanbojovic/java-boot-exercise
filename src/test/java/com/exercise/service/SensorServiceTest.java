@@ -1,5 +1,6 @@
 package com.exercise.service;
 
+import com.exercise.exception.service.AlreadyPresentException;
 import com.exercise.model.Sensor;
 import io.restassured.RestAssured;
 import org.hamcrest.Matchers;
@@ -33,6 +34,7 @@ public class SensorServiceTest {
         RestAssured.port = port;
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void getSensors_ReturnPreconfiguredSensors_True() {
         Collection<Sensor> sensors = sensorService.getSensors();
@@ -42,18 +44,6 @@ public class SensorServiceTest {
                 hasProperty("sensorId", is("sensor-bertastreet-21")),
                 hasProperty("sensorId", is("sensor-werdstreet-2"))
         ));
-    }
-
-    @Test
-    public void findSensor_ReturnSensor_True() {
-        Sensor sensor = sensorService.findSensor("sensor-longstreet-45");
-        assertNotNull("Assert sensor exists", sensor);
-    }
-
-    @Test
-    public void findSensor_ReturnSensor_False() {
-        Sensor sensor = sensorService.findSensor("sensor-non-existant");
-        assertNull("Assert sensor doesn't exist", sensor);
     }
 
     @Test
@@ -72,10 +62,34 @@ public class SensorServiceTest {
 
         try {
             sensorService.addSensor(sensor);
-        } catch (IllegalStateException e) {
-            e.printStackTrace();
+        } catch (AlreadyPresentException e) {
         } finally {
             assertEquals(sensorsCount, sensorService.getSensors().size());
         }
     }
+
+    @Test
+    public void findSensorString_ReturnSensor_True() {
+        Sensor sensor = sensorService.findSensor("sensor-longstreet-45");
+        assertNotNull("Assert sensor exists", sensor);
+    }
+
+    @Test
+    public void findSensorString_ReturnSensor_False() {
+        Sensor sensor = sensorService.findSensor("sensor-non-existant");
+        assertNull("Assert sensor doesn't exist", sensor);
+    }
+
+    @Test
+    public void findSensorLong_ReturnSensor_True() {
+        Sensor sensor = sensorService.findSensor(1);
+        assertNotNull("Assert sensor exists", sensor);
+    }
+
+    @Test
+    public void findSensorLong_ReturnSensor_False() {
+        Sensor sensor = sensorService.findSensor(0);
+        assertNull("Assert sensor doesn't exist", sensor);
+    }
+
 }
