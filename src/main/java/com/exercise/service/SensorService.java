@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collection;
 
 import static com.exercise.generated.public_.tables.Sensor.SENSOR;
-q
+
 @Service
 public class SensorService {
     private static final Logger LOG = LoggerFactory.getLogger(SensorService.class);
