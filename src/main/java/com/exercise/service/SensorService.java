@@ -1,5 +1,6 @@
 package com.exercise.service;
 
+import com.exercise.exception.service.AlreadyPresentException;
 import com.exercise.generated.public_.tables.records.SensorRecord;
 import com.exercise.model.Sensor;
 import org.jooq.DSLContext;
@@ -12,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collection;
 
 import static com.exercise.generated.public_.tables.Sensor.SENSOR;
-
+q
 @Service
 public class SensorService {
     private static final Logger LOG = LoggerFactory.getLogger(SensorService.class);
@@ -26,7 +27,7 @@ public class SensorService {
     }
 
     @Transactional
-    public void addSensor(Sensor sensor) {
+    public void addSensor(Sensor sensor) throws AlreadyPresentException {
         LOG.debug("Executing action add sensor for " + sensor);
 
         if (findSensor(sensor.getSensorId()) == null) {
@@ -34,18 +35,19 @@ public class SensorService {
             SensorRecord sensorRecord = create.newRecord(SENSOR);
             sensorRecord.setSensorPublicId(sensor.getSensorId());
             sensorRecord.store();
-            LOG.debug(sensor + " successfully added.");
+            LOG.debug(sensor.getSensorId() + "] successfully added.");
         } else {
-            LOG.error("ERROR - Sensor name uniquity check FAILED");
-            throw new IllegalStateException("Error - " + sensor + " is already present in database.");
+            throw new AlreadyPresentException("Sensor name uniquity check FAILED, Sensor with id: \" " + sensor.getSensorId() + " \" is already present in database.");
         }
     }
 
-    protected Sensor findSensor(String sensorId) {
-        return getSensors().stream()
-                .filter(sensorElement -> sensorElement.getSensorId().equals(sensorId))
-                .findFirst()
-                .orElse(null);
+    protected Sensor findSensor(String id) {
+        LOG.debug("Fetching sensor from database for id " + id);
+        return create.selectFrom(SENSOR).where(SENSOR.SENSOR_PUBLIC_ID.eq(id)).fetchOne(record -> new Sensor(record.getSensorPublicId()));
     }
 
+    protected Sensor findSensor(long id) {
+        LOG.debug("Fetching sensor from database for id " + id);
+        return create.selectFrom(SENSOR).where(SENSOR.ID.eq(id)).fetchOne(record -> new Sensor(record.getSensorPublicId()));
+    }
 }
