@@ -44,16 +44,11 @@ public class MeasurementResource {
         } catch (ParameterValidationException e) {
             ApiError apiError = new ApiError(BAD_REQUEST, "Parameter validation error - ", e);
             LOG.error("ERROR - ", apiError);
-            return buildResponseEntity(apiError);
+            return apiError.buildResponseEntity();
         } catch (AlreadyPresentException e) {
             ApiError apiError = new ApiError(BAD_REQUEST, "Measurement already exists for provided timestamp", e);
             LOG.error("ERROR - ", apiError);
-            return buildResponseEntity(apiError);
+            return apiError.buildResponseEntity();
         }
-
-    }
-
-    private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {
-        return new ResponseEntity<>(apiError, apiError.getStatus());
     }
 }
