@@ -42,11 +42,7 @@ public class SensorResource {
         } catch (Exception e) {
             ApiError apiError = new ApiError(BAD_REQUEST, "Sensor already exists", e);
             LOG.error("ERROR - ", apiError);
-            return buildResponseEntity(apiError);
+            return apiError.buildResponseEntity();
         }
-    }
-
-    private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {
-        return new ResponseEntity<>(apiError, apiError.getStatus());
     }
 }

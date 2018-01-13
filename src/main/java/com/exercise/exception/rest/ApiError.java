@@ -2,6 +2,7 @@ package com.exercise.exception.rest;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDateTime;
 
@@ -50,4 +51,9 @@ public class ApiError {
     public String getDebugMessage() {
         return debugMessage;
     }
+
+    public ResponseEntity<Object> buildResponseEntity() {
+        return new ResponseEntity<>(this, this.getStatus());
+    }
+
 }
