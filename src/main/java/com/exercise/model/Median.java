@@ -12,10 +12,8 @@ public class Median {
     @NotNull
     private long sensorId;
 
-    @NotNull
     private BigDecimal value;
 
-    @NotNull
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp timestamp;
 
