@@ -39,10 +39,10 @@ public class MedianServiceTest {
 
     @Test
     public void getMedians_ReturnPreconfiguredMedians_True() throws ParseException {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Timestamp ts1 = new Timestamp(df.parse("2018-01-07 15:00:00").getTime());
-        Timestamp ts2 = new Timestamp(df.parse("2018-01-07 16:00:00").getTime());
-        Timestamp ts3 = new Timestamp(df.parse("2018-01-07 17:00:00").getTime());
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        Timestamp ts1 = new Timestamp(df.parse("2018-01-07 15:00:00.123").getTime());
+        Timestamp ts2 = new Timestamp(df.parse("2018-01-07 16:00:00.123").getTime());
+        Timestamp ts3 = new Timestamp(df.parse("2018-01-07 17:00:00.123").getTime());
 
         Median m1 = new Median(1, BigDecimal.valueOf(12), ts1);
         Median m2 = new Median(1, BigDecimal.valueOf(2), ts2);
@@ -55,9 +55,9 @@ public class MedianServiceTest {
 
     @Test
     public void getMediansForPeriod_ReturnPreconfiguredMediansForPeriod_True() throws ParseException {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Timestamp start = new Timestamp(df.parse("2018-01-07 15:00:00").getTime());
-        Timestamp end = new Timestamp(df.parse("2018-01-07 16:00:00").getTime());
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        Timestamp start = new Timestamp(df.parse("2018-01-07 15:00:00.123").getTime());
+        Timestamp end = new Timestamp(df.parse("2018-01-07 16:00:00.123").getTime());
 
         Median m1 = new Median(1, BigDecimal.valueOf(12), start);
         Median m2 = new Median(1, BigDecimal.valueOf(2), end);
@@ -70,8 +70,8 @@ public class MedianServiceTest {
 
     @Test
     public void addMedian_ReturnAddedMedian_True() throws ParseException {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Timestamp ts = new Timestamp(df.parse("2018-01-04 15:00:00").getTime());
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        Timestamp ts = new Timestamp(df.parse("2018-01-04 15:00:00.123").getTime());
         Median median = new Median(1, BigDecimal.valueOf(2), ts);
 
         medianService.addMedian(median);
@@ -81,8 +81,8 @@ public class MedianServiceTest {
 
     @Test
     public void addMedian_returnAddMedian_False() throws ParseException {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Timestamp ts = new Timestamp(df.parse("2018-01-07 18:00:00").getTime());
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        Timestamp ts = new Timestamp(df.parse("2018-01-07 18:00:00.123").getTime());
         Median median = new Median(1, BigDecimal.valueOf(-10), ts);
 
         try {
@@ -95,8 +95,8 @@ public class MedianServiceTest {
 
     @Test
     public void findMedian_ReturnMedian_True() throws ParseException {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Timestamp ts = new Timestamp(df.parse("2018-01-07 15:00:00").getTime());
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        Timestamp ts = new Timestamp(df.parse("2018-01-07 15:00:00.123").getTime());
         Median median = new Median(1, BigDecimal.valueOf(12), ts);
 
         assertNotNull("Assert median found in DB", medianService.findMedian(median));
@@ -104,8 +104,8 @@ public class MedianServiceTest {
 
     @Test
     public void findMedian_ReturnMedian_False() throws ParseException {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Timestamp ts = new Timestamp(df.parse("2011-01-07 13:00:00").getTime());
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        Timestamp ts = new Timestamp(df.parse("2011-01-07 13:00:00.123").getTime());
         Median median = new Median(1, BigDecimal.valueOf(200), ts);
 
         assertNull("Assert median doesn't exist in DB", medianService.findMedian(median));
