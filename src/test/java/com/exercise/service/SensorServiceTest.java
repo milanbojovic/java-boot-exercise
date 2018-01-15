@@ -92,4 +92,8 @@ public class SensorServiceTest {
         assertNull("Assert sensor doesn't exist", sensor);
     }
 
+    @Test
+    public void getSensorDbId_ReturnDatabaseIdForSensor_True() {
+        assertEquals(1, sensorService.findSensorDBId("sensor-longstreet-45"));
+    }
 }
