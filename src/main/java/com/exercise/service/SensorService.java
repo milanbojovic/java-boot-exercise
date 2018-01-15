@@ -50,4 +50,9 @@ public class SensorService {
         LOG.debug("Fetching sensor from database for id " + id);
         return create.selectFrom(SENSOR).where(SENSOR.ID.eq(id)).fetchOne(record -> new Sensor(record.getSensorPublicId()));
     }
+
+    protected long findSensorDBId(String sensorId) {
+        LOG.debug("Fetching sensor database id for publicId " + sensorId);
+        return create.selectFrom(SENSOR).where(SENSOR.SENSOR_PUBLIC_ID.eq(sensorId)).fetchOne(SensorRecord::getId);
+    }
 }
