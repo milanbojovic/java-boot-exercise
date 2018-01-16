@@ -1,3 +1,10 @@
+# Dockerfile was added for this project
+Docker commands for building and running app can be found below
+```bash
+docker build -t java-boot-exercise-image .
+docker run -d --restart=always -p 8080:8080 java-boot-exercise-image
+```
+
 # Java Coding Exercise
 
 The city of Gotham has decided to perform an analysis on the noise of its street. Several sensors have been put at different parts of the city which register the current noise (in decibels) every minute. Your task is to write a REST API which stores data received by this sensors and provides some basic statistical data.
