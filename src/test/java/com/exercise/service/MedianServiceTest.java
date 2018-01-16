@@ -44,12 +44,11 @@ public class MedianServiceTest {
         Timestamp ts2 = new Timestamp(df.parse("2018-01-07 16:00:00.123").getTime());
         Timestamp ts3 = new Timestamp(df.parse("2018-01-07 17:00:00.123").getTime());
 
-        Median m1 = new Median(1, BigDecimal.valueOf(12), ts1);
-        Median m2 = new Median(1, BigDecimal.valueOf(2), ts2);
-        Median m3 = new Median(1, BigDecimal.valueOf(6), ts3);
+        Median m1 = new Median(1, BigDecimal.valueOf(12.0), ts1);
+        Median m2 = new Median(1, BigDecimal.valueOf(2.0), ts2);
+        Median m3 = new Median(1, BigDecimal.valueOf(6.0), ts3);
 
         Collection<Median> medians = medianService.getMedians(1);
-
         assertThat(medians, Matchers.contains(m1, m2, m3));
     }
 
@@ -59,8 +58,8 @@ public class MedianServiceTest {
         Timestamp start = new Timestamp(df.parse("2018-01-07 15:00:00.123").getTime());
         Timestamp end = new Timestamp(df.parse("2018-01-07 16:00:00.123").getTime());
 
-        Median m1 = new Median(1, BigDecimal.valueOf(12), start);
-        Median m2 = new Median(1, BigDecimal.valueOf(2), end);
+        Median m1 = new Median(1, BigDecimal.valueOf(12.0), start);
+        Median m2 = new Median(1, BigDecimal.valueOf(2.0), end);
 
         Collection<Median> medians = medianService.getMediansForPeriod(1, start, end);
 

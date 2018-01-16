@@ -31,11 +31,11 @@ public class MedianResourceIntegrationTest {
     @Test
     public void should_return_all_preconfigured_medians() {
         String jsonMedianString1 =
-                "{\"sensorId\":1,\"value\":12,\"timestamp\":\"2018-01-07 14:00:00\"}";
+                "{\"sensorId\":1,\"value\":12.0,\"timestamp\":\"2018-01-07 14:00:00\"}";
         String jsonMedianString2 =
-                "{\"sensorId\":1,\"value\":2,\"timestamp\":\"2018-01-07 15:00:00\"}";
+                "{\"sensorId\":1,\"value\":2.0,\"timestamp\":\"2018-01-07 15:00:00\"}";
         String jsonMedianString3 =
-                "{\"sensorId\":1,\"value\":6,\"timestamp\":\"2018-01-07 16:00:00\"}";
+                "{\"sensorId\":1,\"value\":6.0,\"timestamp\":\"2018-01-07 16:00:00\"}";
 
         when().
                 get("/medians?sensorId=1").
@@ -47,9 +47,9 @@ public class MedianResourceIntegrationTest {
     @Test
     public void should_return_preconfigured_medians_for_period() {
         String jsonMedianString2 =
-                "{\"sensorId\":1,\"value\":2,\"timestamp\":\"2018-01-07 15:00:00.123\"}";
+                "{\"sensorId\":1,\"value\":2.0,\"timestamp\":\"2018-01-07 15:00:00.123\"}";
         String jsonMedianString3 =
-                "{\"sensorId\":1,\"value\":6,\"timestamp\":\"2018-01-07 16:00:00.123\"}";
+                "{\"sensorId\":1,\"value\":6.0,\"timestamp\":\"2018-01-07 16:00:00.123\"}";
 
         when().
                 get("/medians?sensorId=1&startTimestamp=2018-01-07 15:00:00&endTimestamp=2018-01-07 16:01:00").
